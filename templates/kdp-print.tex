@@ -24,6 +24,10 @@
 %% ──── Fonts (XeLaTeX) ────
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
+
+%% ──── Math (inline and display math blocks) ────
+\usepackage{amsmath}
+\usepackage{amssymb}
 \IfFileExists{EBGaramond-Regular.otf}{%
   \setmainfont{EBGaramond}[%
     Path           = /usr/share/texlive/texmf-dist/fonts/opentype/public/ebgaramond/,%
@@ -118,6 +122,40 @@ $if(author)$\hypersetup{pdfauthor={$author$}}$endif$
 
 %% ──── Images ────
 \usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+%% ──── Tables (Markdown | tables | like | this) ────
+\usepackage{longtable}   %% Pandoc emits longtable for all MD tables
+\usepackage{booktabs}    %% \toprule, \midrule, \bottomrule
+\usepackage{array}       %% extended column specs
+\usepackage{calc}        %% \real{} for Pandoc 3.x table column specs
+\usepackage{multirow}    %% row-spanning cells
+\setlength{\tabcolsep}{6pt}
+%% Make longtable play nicely with book line-spacing
+\let\oldlongtable\longtable
+\let\endoldlongtable\endlongtable
+\renewenvironment{longtable}{\setstretch{1.0}\oldlongtable}{\endoldlongtable}
+
+%% ──── Code Blocks ────
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{listings}
+%% Pandoc injects \VerbatimEnvironment for fenced code blocks
+\newenvironment{Shaded}{}{}
+\newenvironment{Highlighting}[1][]{\begin{Verbatim}[commandchars=\\\{\},#1]}{\end{Verbatim}}
+
+%% ──── Inline Code ────
+\usepackage{upquote}   %% straight quotes inside verbatim
+
+%% ──── Strikethrough ────
+\usepackage[normalem]{ulem}   %% \sout{}; normalem keeps \emph italic
+
+%% ──── URLs in prose ────
+\usepackage{xurl}   %% allows line-breaks in long URLs
 
 %% ──── Tight Lists (Pandoc uses these) ────
 \providecommand{\tightlist}{%
